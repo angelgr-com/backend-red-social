@@ -20,4 +20,4 @@ const dbconnect = () => {
 
 }
 
-module.exports = dbconnect;e
+module.exports = dbconnect;
