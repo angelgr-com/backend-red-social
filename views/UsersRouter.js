@@ -4,35 +4,12 @@ const UsersController = require('../controllers/UsersController');
 
 //CRUD
 
+//formato con aprte de getion en views
 
 
-// //Registro
-// router.post("/register", async(req, res) => {
-//     try {
-//         const user = req.body;
-//         res.json(await UsersController.createUser(user));
-//     } catch (error) {
-//         return res.status(500).json({
-//             message: error.message
-//         });
-//     }
-// });
-// //http://localhost:3000/Users/registro
+//Registro
+router.post("/register", UsersController.userRegister);
 
-
-// //Login
-// router.post("/login", async(req, res) => {
-//     try {
-//         let correo = req.body.email;
-//         let password = req.body.password;
-//         res.json(await UsersController.loginUser(correo));
-//     } catch (error) {
-//         return res.status(500).json({
-//             message: error.message
-//         });
-//     }
-// });
-// //http://localhost:3000/Users/login
 
 
 
@@ -146,16 +123,16 @@ const UsersController = require('../controllers/UsersController');
 
 //Create User
 
-router.post("/", async(req, res) => {
-    try {
-        const user = req.body;
-        res.json(await UsersController.createUser(user));
-    } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        });
-    }
-});
+// router.post("/", async(req, res) => {
+//     try {
+//         const user = req.body;
+//         res.json(await UsersController.createUser(user));
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
 
 // //Find by email
 
