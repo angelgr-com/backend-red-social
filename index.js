@@ -23,4 +23,4 @@ const dbconnect = require('./db/dbconnect');
 
 dbconnect();
 
-app.listen(port, () => console.log(`Node server runing on http://localhost:${port}` ));
+app.listen(port, () => console.log(`Node server running on ${port}` ));
