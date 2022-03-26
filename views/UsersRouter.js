@@ -6,78 +6,113 @@ const UsersController = require('../controllers/UsersController');
 
 
 
-//Registro
-router.post('/registro', UsuariosController.registraUsuario);
-//http://localhost:3000/Usuarios/registro
+// //Registro
+// router.post("/register", async(req, res) => {
+//     try {
+//         const user = req.body;
+//         res.json(await UsersController.createUser(user));
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
+// //http://localhost:3000/Users/registro
 
 
-//Registro
-router.post("/registro", async(req, res) => {
-    try {
-        const user = req.body;
-        res.json(await UsersController.createUser(user));
-    } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        });
-    }
-});
-//http://localhost:3000/Users/registro
-
-
-//Login
-router.post("/login", async(req, res) => {
-    try {
-        let correo = req.body.email;
-        let password = req.body.password;
-        res.json(await UsersController.loginUser(user));
-    } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        });
-    }
-});
-//http://localhost:3000/Users/registro
+// //Login
+// router.post("/login", async(req, res) => {
+//     try {
+//         let correo = req.body.email;
+//         let password = req.body.password;
+//         res.json(await UsersController.loginUser(correo));
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
+// //http://localhost:3000/Users/login
 
 
 
-//Login
-router.post('/login', UsuariosController.loginUsuarios);
-//http://localhost:3000/Usuarios/login
+
+// //profile
+
+// //Lee Usuario por id
+// router.get("/read/id/:id", async(req, res) => {
+//     try {
+//         let id = req.params.id
+//         res.json(await UsersController.findUser(id));
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
+// //http://localhost:3000/Users/leer/id/:id
 
 
-//profile
 
-//Lee Usuario por id
-//http://localhost:3000/Usuarios/leer/id/:id
-// router.get('/leer/id/:id', auth, isAdmin, UsuariosController.traerUsuarioId);
-router.get('/leer/id/:id', async(req, res) => {
-    
-}auth, isAdmin, UsuariosController.traerUsuarioId);
+// //Actualizar datos de Usuario por id
+// router.put("/updadate/profileId/:id", async(req, res) => {
+//     try {
+//         const user = req.body;
+//         res.json(await UsersController.updateUser(user));
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
+// //http://localhost:3000/Users/actualizar/email/:id
 
-//Actualizar contraseña de Usuario por id
-router.put('/actualizar/newpassword', auth, UsuariosController.updatePasswordId);
-//http://localhost:3000/Usuarios/actualizar/newpassword
+
+// //Borramos a usuario por id
+// router.delete("/delete/id/:id", async(req, res) => {
+//     try {
+//         let id = req.params.id
+//         res.json(await UsersController.removeUser(id));
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
+// //http://localhost:3000/Usuarios/borrar/id/:id
 
 
-//Actualizar datos de Usuario por id
-router.put('/actualizar/perfilId/:id', UsuariosController.updateProfileId);
-//http://localhost:3000/Usuarios/actualizar/email/:id
 
-//Borramos a usuario por id
-router.delete('/borrar/id/:id', auth, isAdmin, UsuariosController.deleteById);
-//http://localhost:3000/Usuarios/borrar/id/:id
 
 
 // //superusuario
 
 // //Subir de nivel a superusuario de Usuario por id
-// router.put('/actualizar/idAdmin', auth, UsuariosController.idAdmin);
+// router.post("/admin", async(req, res) => {
+//     try {
+//         const user = req.body;
+//         res.json(await UsersController.adminUser(user));
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
 // //http://localhost:3000/Usuarios/actualizar/idAdmin
 
+
 // //Convertir en Auth de Usuario por id
-// router.put('/actualizar/idAuth', auth, UsuariosController.degradeProfileId);
-// //http://localhost:3000/Usuarios/actualizar/email/idAuth
+// router.post("/auth", async(req, res) => {
+//     try {
+//         const user = req.body;
+//         res.json(await UsersController.authUser(user));
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
+
 
 
 
@@ -96,18 +131,18 @@ router.delete('/borrar/id/:id', auth, isAdmin, UsuariosController.deleteById);
 
 //GET - Find all data of all clients
 
-router.get("/", async(req, res) => {
-    try {
-        res.json(await UsersController.findAllUsers());
-    } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        });
-    }
-});
+// router.get("/", async(req, res) => {
+//     try {
+//         res.json(await UsersController.findAllUsers());
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
 
 
-//POST
+// //POST
 
 //Create User
 
@@ -122,33 +157,33 @@ router.post("/", async(req, res) => {
     }
 });
 
-//Find by email
+// //Find by email
 
-router.post('/email', async(req, res) => {
-    try {
-        let email = req.body.email;
-        res.json(await UsersController.findByEmail(email));
-    } catch (err) {
-        return res.status(500).json({
-            message: err.message
-        });
-    }
-});
+// router.post('/email', async(req, res) => {
+//     try {
+//         let email = req.body.email;
+//         res.json(await UsersController.findByEmail(email));
+//     } catch (err) {
+//         return res.status(500).json({
+//             message: err.message
+//         });
+//     }
+// });
 
-//PUT
+// //PUT
 
 
-//DELETE
+// //DELETE
 
-router.delete("/", async(req, res) => {
-    try {
-        const body = req.body;
-        res.json(await UsersController.removeUser(body));
-    } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        });
-    }
-});
+// router.delete("/", async(req, res) => {
+//     try {
+//         const body = req.body;
+//         res.json(await UsersController.removeUser(body));
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
 
 module.exports = router;
