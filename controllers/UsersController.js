@@ -14,36 +14,37 @@ UsersController.userRegister = async (req, res) => {
         );
     let avatar = req.body.avatar;
     let isAdmin = req.body.isAdmin;
-  
-    User.find({
-      email: email,
+     
+    User
+    .findOne({
+        email: email,
     })
-      .then((datosRepetidos) => {
-        if (datosRepetidos == false) {
-          User.create({
-            name: name,
-            nickname: nickname,
-            email: email,
-            avatar: userName,
-            password: password,
-            isAdmin: isAdmin
-          })
-            .then((user) => {
-              res.send(`${user.firstName}, successfully registered`);
+    .then(user => {
+        // Create user if no one is registered with that email
+        if (user === null) {
+            User.create({
+                name: name,
+                nickname: nickname,
+                email: email,
+                avatar: avatar,
+                password: password,
+                isAdmin: isAdmin
             })
-            .catch((error) => {
-              res.send(error);
+            .then(user => {
+                res.status(201).send(`${user.name} was successfully registered`);
+            })
+            .catch(error => {
+                res.status(400).send(error);
             });
         } else {
-          res.send(
-            "The user with this e-mail already exists in our database."
-          );
+            res.send(
+                "A user with this e-mail already exists in our database."
+            );
         }
-      })
-      .catch((error) => {
-        res.send(error);
-      });
-      
+    })
+    .catch(error => {
+        res.status(400).send(error);
+    });
   };
 
   module.exports = UsersController;
