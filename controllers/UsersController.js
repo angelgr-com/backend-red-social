@@ -11,17 +11,17 @@ class User {
         return UserModel.create(user);
     }
 
-    // async findAllUsers(){
-    //     return UserModel.find();
-    // }
+    async findAllUsers(){
+        return UserModel.find();
+    }
 
-    // async findByEmail(email){
-    //     return UserModel.findOne(email)
-    // }
+    async findByEmail(email){
+        return UserModel.findOne(email)
+    }
 
-    // async removeUser(){
-    //     return UserModel.findByIdAndRemove( { _id: req._id } );
-    // }
+    async removeUser(){
+        return UserModel.findByIdAndRemove( { _id: req._id } );
+    }
 }
 
 let UsersController = new User();
