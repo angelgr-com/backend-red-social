@@ -42,43 +42,35 @@ UsersController.register = async (req, res) => {
     });
 };
 
-
-
-//LOGIN
-UsersController.userLogin = async (req, res) => {
-    let email = req.body.email;
-    let password = req.body.password;
-  
-    User.findOne({
-      email: email,
+UsersController.login = async (req, res) => {
+    User
+    .findOne({
+        email: req.body.email,
     })
-      .then((user) => {
+    .then((user) => {
         if (!user) {
-          res.send("user o contraseña inválido");
+            res.send("Invalid user or password.");
         } else {
-          if (bcrypt.compareSync(password, user.password)) {
-            //COMPARA CONTRASEÑA INTRODUCIDA CON CONTRASEÑA GUARDADA, TRAS DESENCRIPTAR
-  
-            let token = jwt.sign({ user: user }, process.env.AUTH_ROUNDS, {
-              expiresIn: process.env.AUTH_EXPIRES,
-            });
-  
-            user.token = token;
-            res.json({
-              user: user,
-              token: token,
-              loginSucces: true,
-            });
-          } else {
-            res.status(401).json({ msg: "user o contraseña inválidos" });
-          }
+            if (bcrypt.compareSync(req.body.password, user.password)) {
+                let token = jwt.sign({ user: user },
+                                     process.env.AUTH_ROUNDS,
+                                     { expiresIn: process.env.AUTH_EXPIRES }
+                );
+                user.token = token;
+                res.json({
+                    user: user,
+                    token: token,
+                    loginSuccess: true,
+                });
+            } else {
+                res.status(401).json({ msg: "Invalid user or password." });
+            }
         }
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
         res.send(error);
-      });
-  };
-
+    });
+};
 
 UsersController.findById = async (req, res) => {
     User
@@ -136,12 +128,13 @@ UsersController.deleteById = async (req, res) => {
         _id: req.params.id,
     })
     .then(user => {
+        console.log('req.params.id: ', req.params.id);
         if (user) {
             res.status(201).send(
                 "User deleted."
             );
         } else {
-            res.status(401).send(
+            res.status(400).send(
                 "User not found."
             );
         }
@@ -151,143 +144,139 @@ UsersController.deleteById = async (req, res) => {
     });
 }
 
-
-
 //Actualizar a admin del user por id
-UsersController.idAdmin = (req, res) => {
+// UsersController.idAdmin = (req, res) => {
+//     let id = req.body.id;
+//     let highPassword = req.body.highPassword;
+//     let newRol;
+  
+//         User.findOne({
+//             where: {
+//                 id: id
+//             }
+//         }).then(userFound => {
+  
+//             if (userFound) {
+//                 //console.log("holaaaaaaaaaaaaaaaaaaaaaaa", userFound);
+//                 if (userFound.rol === false) {
+  
+//                     //En caso de que el rol antiguo SI sea el correcto....
+  
+//                     //1er paso..encriptamos el nuevo password....
+  
+//                     newRol = true;
+  
+//                     ////////////////////////////////7
+  
+//                     //2do paso guardamos el nuevo password en la base de datos
+  
+//                     let data = {
+//                         rol: newRol
+//                     }
+  
+//                     //console.log("esto es data", data);
+  
+//                     user.update(data, {
+//                             where: {
+//                                 id: id
+//                             }
+//                         })
+//                         .then(updated => {
+//                             res.send(updated);
+//                         })
+//                         .catch((error) => {
+//                             res.status(401).json({
+//                                 msg: `Ha ocurrido un error actualizando el password`
+//                             });
+//                         });
+  
+//                 } else {
+//                     res.status(401).json({
+//                         msg: "Tu user ya es Admin"
+//                     });
+//                 }
+  
+  
+//             } else {
+//                 res.send(`user no encontrado`);
+//             }
+  
+//         }).catch((error => {
+//             res.send(error);
+//         }));
+  
 
-    let id = req.body.id;
-    let highPassword = req.body.highPassword;
-    let newRol;
   
-        User.findOne({
-            where: {
-                id: id
-            }
-        }).then(userFound => {
-  
-            if (userFound) {
-                //console.log("holaaaaaaaaaaaaaaaaaaaaaaa", userFound);
-                if (userFound.rol === false) {
-  
-                    //En caso de que el rol antiguo SI sea el correcto....
-  
-                    //1er paso..encriptamos el nuevo password....
-  
-                    newRol = true;
-  
-                    ////////////////////////////////7
-  
-                    //2do paso guardamos el nuevo password en la base de datos
-  
-                    let data = {
-                        rol: newRol
-                    }
-  
-                    //console.log("esto es data", data);
-  
-                    user.update(data, {
-                            where: {
-                                id: id
-                            }
-                        })
-                        .then(updated => {
-                            res.send(updated);
-                        })
-                        .catch((error) => {
-                            res.status(401).json({
-                                msg: `Ha ocurrido un error actualizando el password`
-                            });
-                        });
-  
-                } else {
-                    res.status(401).json({
-                        msg: "Tu user ya es Admin"
-                    });
-                }
+//   };
   
   
-            } else {
-                res.send(`user no encontrado`);
-            }
+//   //Actualizar a auth del user por id
+//   UsersController.idAuth = (req, res) => {
   
-        }).catch((error => {
-            res.send(error);
-        }));
+//     let id = req.body.id;
+//     let highPassword = req.body.highPassword;
+//     let newRol;
+//     if (highPassword === `${constHighPassword}`) {
   
-
+//         user.findOne({
+//             where: {
+//                 id: id
+//             }
+//         }).then(userFound => {
   
-  };
+//             if (userFound) {
   
+//                 if (userFound.rol === true) {
   
-  //Actualizar a auth del user por id
-  UsersController.idAuth = (req, res) => {
+//                     //En caso de que el rol antiguo SI sea el correcto....
   
-    let id = req.body.id;
-    let highPassword = req.body.highPassword;
-    let newRol;
-    if (highPassword === `${constHighPassword}`) {
+//                     //1er paso..encriptamos el nuevo password....
   
-        user.findOne({
-            where: {
-                id: id
-            }
-        }).then(userFound => {
+//                     newRol = false;
   
-            if (userFound) {
+//                     ////////////////////////////////7
   
-                if (userFound.rol === true) {
+//                     //2do paso guardamos el nuevo password en la base de datos
   
-                    //En caso de que el rol antiguo SI sea el correcto....
+//                     let data = {
+//                         rol: newRol
+//                     }
   
-                    //1er paso..encriptamos el nuevo password....
+//                     //console.log("esto es data", data);
   
-                    newRol = false;
+//                     user.update(data, {
+//                             where: {
+//                                 id: id
+//                             }
+//                         })
+//                         .then(updated => {
+//                             res.send(updated);
+//                         })
+//                         .catch((error) => {
+//                             res.status(401).json({
+//                                 msg: `Ha ocurrido un error actualizando el password`
+//                             });
+//                         });
   
-                    ////////////////////////////////7
-  
-                    //2do paso guardamos el nuevo password en la base de datos
-  
-                    let data = {
-                        rol: newRol
-                    }
-  
-                    //console.log("esto es data", data);
-  
-                    user.update(data, {
-                            where: {
-                                id: id
-                            }
-                        })
-                        .then(updated => {
-                            res.send(updated);
-                        })
-                        .catch((error) => {
-                            res.status(401).json({
-                                msg: `Ha ocurrido un error actualizando el password`
-                            });
-                        });
-  
-                } else {
-                    res.status(401).json({
-                        msg: "Tu user ya es Auth"
-                    });
-                }
+//                 } else {
+//                     res.status(401).json({
+//                         msg: "Tu user ya es Auth"
+//                     });
+//                 }
   
   
-            } else {
-                res.send(`user no encontrado`);
-            }
+//             } else {
+//                 res.send(`user no encontrado`);
+//             }
   
-        }).catch((error => {
-            res.send(error);
-        }));
+//         }).catch((error => {
+//             res.send(error);
+//         }));
   
-    } else {
-        res.send(`Contraseña de admin incorrecta`);
-    }
-  
-  };
+//     } else {
+//         res.send(`Contraseña de admin incorrecta`);
+//     }
+// };
   
 
 module.exports = UsersController;

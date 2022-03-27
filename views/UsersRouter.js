@@ -5,7 +5,7 @@ const isAdmin = require("../middlewares/isAdmin");
 
 // Register
 router.post("/register", UsersController.register);
-router.post("/login", UsersController.userLogin);
+router.post("/login", UsersController.login);
 
 // Profile
 router.get("/:id", UsersController.findById);
@@ -14,10 +14,10 @@ router.delete("/:id", UsersController.deleteById);
 
 // //superusuario
 //Subir de nivel a superusuario de Usuario por id
-router.put('/idAdmin',  UsersController.idAdmin);
+// router.put('/idAdmin',  UsersController.idAdmin);
 
 //Convertir en Auth de Usuario por id
-router.put('/idAuth', UsersController.idAuth);
+// router.put('/idAuth', UsersController.idAuth);
 
 
 
