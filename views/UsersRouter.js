@@ -1,9 +1,11 @@
 const router = require("express").Router();
 const UsersController = require('../controllers/UsersController');
+const auth = require("../middlewares/auth");
+const isAdmin = require("../middlewares/isAdmin");
 
 // Register
 router.post("/register", UsersController.register);
-// router.post("/login", UsersController.userLogin);
+router.post("/login", UsersController.userLogin);
 
 // Profile
 router.get("/:id", UsersController.findById);
@@ -11,6 +13,12 @@ router.put("/:id", UsersController.updateById);
 router.delete("/:id", UsersController.deleteById);
 
 // //superusuario
+//Subir de nivel a superusuario de Usuario por id
+router.put('/idAdmin',  UsersController.idAdmin);
+
+//Convertir en Auth de Usuario por id
+router.put('/idAuth', UsersController.idAuth);
+
 
 
 

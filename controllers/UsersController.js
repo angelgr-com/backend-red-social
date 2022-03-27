@@ -42,6 +42,44 @@ UsersController.register = async (req, res) => {
     });
 };
 
+
+
+//LOGIN
+UsersController.userLogin = async (req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+  
+    User.findOne({
+      email: email,
+    })
+      .then((user) => {
+        if (!user) {
+          res.send("user o contraseña inválido");
+        } else {
+          if (bcrypt.compareSync(password, user.password)) {
+            //COMPARA CONTRASEÑA INTRODUCIDA CON CONTRASEÑA GUARDADA, TRAS DESENCRIPTAR
+  
+            let token = jwt.sign({ user: user }, process.env.AUTH_ROUNDS, {
+              expiresIn: process.env.AUTH_EXPIRES,
+            });
+  
+            user.token = token;
+            res.json({
+              user: user,
+              token: token,
+              loginSucces: true,
+            });
+          } else {
+            res.status(401).json({ msg: "user o contraseña inválidos" });
+          }
+        }
+      })
+      .catch((error) => {
+        res.send(error);
+      });
+  };
+
+
 UsersController.findById = async (req, res) => {
     User
     .findById({
@@ -112,5 +150,144 @@ UsersController.deleteById = async (req, res) => {
         res.status(400).send(error);
     });
 }
+
+
+
+//Actualizar a admin del user por id
+UsersController.idAdmin = (req, res) => {
+
+    let id = req.body.id;
+    let highPassword = req.body.highPassword;
+    let newRol;
+  
+        User.findOne({
+            where: {
+                id: id
+            }
+        }).then(userFound => {
+  
+            if (userFound) {
+                //console.log("holaaaaaaaaaaaaaaaaaaaaaaa", userFound);
+                if (userFound.rol === false) {
+  
+                    //En caso de que el rol antiguo SI sea el correcto....
+  
+                    //1er paso..encriptamos el nuevo password....
+  
+                    newRol = true;
+  
+                    ////////////////////////////////7
+  
+                    //2do paso guardamos el nuevo password en la base de datos
+  
+                    let data = {
+                        rol: newRol
+                    }
+  
+                    //console.log("esto es data", data);
+  
+                    user.update(data, {
+                            where: {
+                                id: id
+                            }
+                        })
+                        .then(updated => {
+                            res.send(updated);
+                        })
+                        .catch((error) => {
+                            res.status(401).json({
+                                msg: `Ha ocurrido un error actualizando el password`
+                            });
+                        });
+  
+                } else {
+                    res.status(401).json({
+                        msg: "Tu user ya es Admin"
+                    });
+                }
+  
+  
+            } else {
+                res.send(`user no encontrado`);
+            }
+  
+        }).catch((error => {
+            res.send(error);
+        }));
+  
+
+  
+  };
+  
+  
+  //Actualizar a auth del user por id
+  UsersController.idAuth = (req, res) => {
+  
+    let id = req.body.id;
+    let highPassword = req.body.highPassword;
+    let newRol;
+    if (highPassword === `${constHighPassword}`) {
+  
+        user.findOne({
+            where: {
+                id: id
+            }
+        }).then(userFound => {
+  
+            if (userFound) {
+  
+                if (userFound.rol === true) {
+  
+                    //En caso de que el rol antiguo SI sea el correcto....
+  
+                    //1er paso..encriptamos el nuevo password....
+  
+                    newRol = false;
+  
+                    ////////////////////////////////7
+  
+                    //2do paso guardamos el nuevo password en la base de datos
+  
+                    let data = {
+                        rol: newRol
+                    }
+  
+                    //console.log("esto es data", data);
+  
+                    user.update(data, {
+                            where: {
+                                id: id
+                            }
+                        })
+                        .then(updated => {
+                            res.send(updated);
+                        })
+                        .catch((error) => {
+                            res.status(401).json({
+                                msg: `Ha ocurrido un error actualizando el password`
+                            });
+                        });
+  
+                } else {
+                    res.status(401).json({
+                        msg: "Tu user ya es Auth"
+                    });
+                }
+  
+  
+            } else {
+                res.send(`user no encontrado`);
+            }
+  
+        }).catch((error => {
+            res.send(error);
+        }));
+  
+    } else {
+        res.send(`Contraseña de admin incorrecta`);
+    }
+  
+  };
+  
 
 module.exports = UsersController;
