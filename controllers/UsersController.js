@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 UsersController.register = async (req, res) => {
     User
     .findOne({
-        email: email,
+        email: req.body.email,
     })
     .then(user => {
         // Create user if no one is registered with that email

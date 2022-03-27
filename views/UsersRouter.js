@@ -3,6 +3,7 @@ const UsersController = require('../controllers/UsersController');
 
 // Register
 router.post("/register", UsersController.register);
+// router.post("/login", UsersController.userLogin);
 
 // Profile
 router.get("/:id", UsersController.findById);
@@ -10,6 +11,8 @@ router.put("/:id", UsersController.updateById);
 router.delete("/:id", UsersController.deleteById);
 
 // //superusuario
+
+
 
 // //Subir de nivel a superusuario de Usuario por id
 // router.post("/admin", async(req, res) => {
