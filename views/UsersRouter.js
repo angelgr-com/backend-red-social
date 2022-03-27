@@ -1,66 +1,13 @@
 const router = require("express").Router();
-
 const UsersController = require('../controllers/UsersController');
 
-//CRUD
+// Register
+router.post("/register", UsersController.register);
 
-//formato con aprte de getion en views
-
-
-//Registro
-router.post("/register", UsersController.userRegister);
-
-
-
-
-
-// //profile
-
-// //Lee Usuario por id
-// router.get("/read/id/:id", async(req, res) => {
-//     try {
-//         let id = req.params.id
-//         res.json(await UsersController.findUser(id));
-//     } catch (error) {
-//         return res.status(500).json({
-//             message: error.message
-//         });
-//     }
-// });
-// //http://localhost:3000/Users/leer/id/:id
-
-
-
-// //Actualizar datos de Usuario por id
-// router.put("/updadate/profileId/:id", async(req, res) => {
-//     try {
-//         const user = req.body;
-//         res.json(await UsersController.updateUser(user));
-//     } catch (error) {
-//         return res.status(500).json({
-//             message: error.message
-//         });
-//     }
-// });
-// //http://localhost:3000/Users/actualizar/email/:id
-
-
-// //Borramos a usuario por id
-// router.delete("/delete/id/:id", async(req, res) => {
-//     try {
-//         let id = req.params.id
-//         res.json(await UsersController.removeUser(id));
-//     } catch (error) {
-//         return res.status(500).json({
-//             message: error.message
-//         });
-//     }
-// });
-// //http://localhost:3000/Usuarios/borrar/id/:id
-
-
-
-
+// Profile
+router.get("/:id", UsersController.findById);
+router.put("/:id", UsersController.updateById);
+router.delete("/:id", UsersController.deleteById);
 
 // //superusuario
 
