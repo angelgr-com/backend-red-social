@@ -102,6 +102,23 @@ PostsController.getThread = async (req, res) => {
     });
 }
 
-
+PostsController.deleteThread = async (req, res) => {
+    Post
+    .deleteMany({
+        title_url: req.params.title,
+    })
+    .then(posts => {
+        if (posts) {
+            res.status(200).send("Thread deleted.");
+        } else {
+            res.status(400).send(
+                "Post not found."
+            );
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+    });
+}
 
 module.exports = PostsController;
