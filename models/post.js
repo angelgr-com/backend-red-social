@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+
 const postSchema = new Schema({
     user_id: {
         type: String,
-        required: true
     },
     author: {
         type: String,
@@ -18,25 +18,16 @@ const postSchema = new Schema({
         type: String,
         required: true,
     },
-    likes : [String],
-    // comments: [
-    //     {
-    //         user_id_post: String,
-    //         author_post: String,
-    //         content_post: String,
-    //         likes_post : Number,
-    //         date_post: {
-    //             type: Date,
-    //             default: new Date()
-    //         }
-    //     }
-    // ],
+    likes: [String],
     date: {
         type: Date,
         default: new Date()
+    },
+    thread_id: {
+        type: String,
+        default: "",
     }
-    }
-);
+});
 
 const toJSONConfig = {
     transform: (doc, ret, opt) => { //transform es un metodo de mongoose

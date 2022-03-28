@@ -3,6 +3,6 @@ const PostsController = require('../controllers/PostsController');
 
 router.post("/", PostsController.new);
 router.put("/", PostsController.update);
-router.delete("/", PostsController.delete);
+router.delete("/:_id", PostsController.delete);
 
 module.exports = router;
