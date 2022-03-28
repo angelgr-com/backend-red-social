@@ -2,7 +2,8 @@ require('dotenv').config();
 const User = require('../models/user.js');
 const bcrypt = require("bcrypt");
 const UsersController = {};
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
 
 UsersController.register = async (req, res) => {
     User
@@ -50,17 +51,15 @@ UsersController.login = async (req, res) => {
     .then((user) => {
         if (!user) {
             res.send("Invalid user or password.");
-        } else {
-            if (bcrypt.compareSync(req.body.password, user.password)) {
-                let token = jwt.sign({ user: user },
-                                     process.env.AUTH_ROUNDS,
-                                     { expiresIn: process.env.AUTH_EXPIRES }
-                );
-                user.token = token;
-                res.json({
-                    user: user,
-                    token: token
-                });
+        }else {
+            if (bcrypt.compareSync(req.body.password, User.password)) {
+              let token = jwt.sign({ user: User }, process.env.AUTH_SECRET, {
+                expiresIn: process.env.AUTH_EXPIRES
+              });
+              res.status(200).json({
+                  user: User.username,
+                  token: token
+              });
             } else {
                 res.status(401).json({ msg: "Invalid user or password." });
             }
