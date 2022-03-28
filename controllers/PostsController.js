@@ -4,12 +4,13 @@ const PostsController = {};
 PostsController.new = async (req, res) => {
     Post
     .create({
+        user_id: req.body.user_id,
         author: req.body.author,
         title: req.body.title,
         content: req.body.content,
-        links: req.body.links,
+        likes: req.body.likes,
         date: req.body.date,
-        likes: req.body.likes
+        related_post: req.body.date
     })
     .then(post => {
         res
@@ -30,10 +31,11 @@ PostsController.update = async (req, res) => {
         if (post) {
             // modify author only on backend
             // in case author deletes his or her user 
+            post.user_id = req.body.user_id;
             post.author = req.body.author;
             post.title = req.body.title;
             post.content = req.body.content;
-            post.links = req.body.links;
+            post.related_post = req.body.related_post;
             post.save();
             res
             .status(201)
@@ -69,5 +71,8 @@ PostsController.delete = async (req, res) => {
         res.status(400).send(error);
     });
 }
+
+
+
 
 module.exports = PostsController;

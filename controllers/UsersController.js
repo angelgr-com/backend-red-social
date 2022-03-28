@@ -2,7 +2,7 @@ require('dotenv').config();
 const User = require('../models/user.js');
 const bcrypt = require("bcrypt");
 const UsersController = {};
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 UsersController.register = async (req, res) => {
     User
@@ -59,8 +59,7 @@ UsersController.login = async (req, res) => {
                 user.token = token;
                 res.json({
                     user: user,
-                    token: token,
-                    loginSuccess: true,
+                    token: token
                 });
             } else {
                 res.status(401).json({ msg: "Invalid user or password." });

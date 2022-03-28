@@ -1,39 +1,47 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const postSchema = new Schema ({
+const postSchema = new Schema({
+    user_id: {
+        type: String,
+        required: true
+    },
     author: {
         type: String,
-        required: true,
-        unique: true,
+        required: true
     },
     title: {
         type: String,
         required: true,
-        unique: true,
     },
     content: {
         type: String,
-        unique: true,
-        required: true
+        required: true,
     },
-    links: {
-        type: [String]
-    },
+    likes : [String],
+    // comments: [
+    //     {
+    //         user_id_post: String,
+    //         author_post: String,
+    //         content_post: String,
+    //         likes_post : Number,
+    //         date_post: {
+    //             type: Date,
+    //             default: new Date()
+    //         }
+    //     }
+    // ],
     date: {
         type: Date,
-        required: true,
-        unique: true,
-    },
-    likes: {
-        type: [String], // array of nicknames
+        default: new Date()
     }
-});
+    }
+);
 
 const toJSONConfig = {
-    transform: (doc,ret,opt) => {//transform es un metodo de mongoose
-           delete ret['password']//ret es un metodo encripta la password para enviarla con mas seguridad
-           return ret
+    transform: (doc, ret, opt) => { //transform es un metodo de mongoose
+        delete ret['password'] //ret es un metodo encripta la password para enviarla con mas seguridad
+        return ret
     }
 }
 
