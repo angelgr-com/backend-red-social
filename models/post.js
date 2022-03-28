@@ -1,41 +1,32 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema ({
-    name: {
-        type: String,
-        required: true
-    },
-    nickname: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    email: {
+const postSchema = new Schema ({
+    author: {
         type: String,
         required: true,
         unique: true,
-        lowercase: true
     },
-    password: {
+    title: {
         type: String,
+        required: true,
+        unique: true,
+    },
+    content: {
+        type: String,
+        unique: true,
         required: true
     },
-    avatar: {
-        type: String,
+    links: {
+        type: [String]
     },
-    followers: {
-        type: String,
-    },
-    following: {
-        type: String,
+    date: {
+        type: Date,
+        required: true,
+        unique: true,
     },
     likes: {
-        type: String,
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false
+        type: [String], // array of nicknames
     }
 });
 
@@ -47,7 +38,7 @@ const toJSONConfig = {
 }
 
 
-userSchema.set('toJSON', toJSONConfig);
+postSchema.set('toJSON', toJSONConfig);
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+const Post = mongoose.model("Post", postSchema);
+module.exports = Post;

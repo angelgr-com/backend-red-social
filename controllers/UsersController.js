@@ -128,7 +128,6 @@ UsersController.deleteById = async (req, res) => {
         _id: req.params.id,
     })
     .then(user => {
-        console.log('req.params.id: ', req.params.id);
         if (user) {
             res.status(201).send(
                 "User deleted."
