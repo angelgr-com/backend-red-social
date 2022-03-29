@@ -3,25 +3,24 @@ const Schema = mongoose.Schema;
 
 
 const postSchema = new Schema({
-    user_id: {
-        type: String,
-    },
     author: {
         type: String,
         required: true
     },
     title: {
         type: String,
-        required: true,
+    },
+    title_url: {
+        type: String,
     },
     content: {
         type: String,
         required: true,
     },
-    likes: [String],
+    likes: [{ type: String }],
     date: {
         type: Date,
-        default: new Date()
+        default: Date.now
     },
     thread_id: {
         type: String,
