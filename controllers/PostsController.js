@@ -11,7 +11,7 @@ const formatString = (string) => {
     return result;
 }
 
-PostsController.new = async (req, res) => {
+PostsController.newPost = async (req, res) => {
     let author = formatString(req.body.author);
     let title_url = formatString(req.body.title);
 
@@ -37,20 +37,14 @@ PostsController.new = async (req, res) => {
     });
 }
 
-PostsController.update = async (req, res) => {
+PostsController.getPost = async (req, res) => {
     Post
     .findById({
-        _id: req.body._id,
+        _id: req.params._id,
     })
     .then(post => {
         if (post) {
-            post.title = req.body.title;
-            post.content = req.body.content;
-            post.thread_od = req.body.related_post;
-            post.save();
-            res
-                .status(201)
-                .send(`Post successfully updated`);
+            res.status(201).send(post);
         } else {
             res.status(401).send(
                 'Post not found.'
@@ -62,7 +56,32 @@ PostsController.update = async (req, res) => {
     });
 }
 
-PostsController.delete = async (req, res) => {
+PostsController.updatePost = async (req, res) => {
+    Post
+    .findById({
+        _id: req.body._id,
+    })
+    .then(post => {
+        if (post) {
+            post.title = req.body.title;
+            post.content = req.body.content;
+            post.thread_id = req.body.thread_id;
+            post.save();
+            res
+            .status(201)
+            .send(`Post successfully updated`);
+        } else {
+            res.status(401).send(
+                'Post not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+    });
+}
+
+PostsController.deletePost = async (req, res) => {
     Post
     .findByIdAndDelete({
         _id: req.params._id,
@@ -83,10 +102,32 @@ PostsController.delete = async (req, res) => {
     });
 }
 
-PostsController.getThread = async (req, res) => {
+PostsController.getThreadByTitle = async (req, res) => {
     Post
     .find({
         title_url: req.params.title,
+    })
+    .then(posts => {
+        if (posts) {
+            res.status(200).send(posts);
+        } else {
+            res.status(400).send(
+                "Post not found."
+            );
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+    });
+}
+
+PostsController.getThreadById = async (req, res) => {
+    Post
+    .find({
+        $or:[
+            {'_id': req.params._id},
+            {'thread_id': req.params._id}
+        ]
     })
     .then(posts => {
         if (posts) {
@@ -110,6 +151,33 @@ PostsController.deleteThread = async (req, res) => {
     .then(posts => {
         if (posts) {
             res.status(200).send("Thread deleted.");
+        } else {
+            res.status(400).send(
+                "Post not found."
+            );
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+    });
+}
+
+PostsController.totalLikesByAuthor = async (req, res) => {
+    Post
+    .find({
+        author: req.params.author,
+    })
+    .then(posts => {
+        if (posts) {
+            console.log(posts);
+            // users.map(function(element){
+            //     return `${element.firstName} ${element.lastName}`;
+            // })
+            let sum = 0;
+            posts.map((post) => {
+                sum += post.likes.length;
+            });
+            res.status(200).send(`${req.params.author}'s total likes: ${sum}`);
         } else {
             res.status(400).send(
                 "Post not found."

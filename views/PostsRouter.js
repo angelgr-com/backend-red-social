@@ -1,10 +1,19 @@
 const router = require("express").Router();
 const PostsController = require('../controllers/PostsController');
 
-router.post("/", PostsController.new);
-router.put("/", PostsController.update);
-router.delete("/:_id", PostsController.delete);
-router.get("/:title", PostsController.getThread);
+// Posts
+router.get("/:_id", PostsController.getPost);
+router.post("/", PostsController.newPost);
+router.put("/", PostsController.updatePost);
+router.delete("/:_id", PostsController.deletePost);
+
+// Threads
+router.get("/:title", PostsController.getThreadByTitle);
+router.get("/id/:_id", PostsController.getThreadById);
 router.delete("/delete/:title", PostsController.deleteThread);
+
+// Likes
+router.get("/likes/:author", PostsController.totalLikesByAuthor);
+
 
 module.exports = router;
