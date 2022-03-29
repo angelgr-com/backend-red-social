@@ -20,7 +20,7 @@ router.put('/idAdmin', auth, isAdmin ,  UsersController.idAdmin);
 router.put('/idAuth', auth, isAdmin , UsersController.idAuth);
 
 
-
+ 
 
 // //Subir de nivel a superusuario de Usuario por id
 // router.post("/admin", async(req, res) => {
