@@ -141,7 +141,7 @@ UsersController.deleteById = async (req, res) => {
     });
 }
 
-Actualizar a admin del user por id
+// Actualizar a admin del user por id
 UsersController.idAdmin = (req, res) => {
     let id = req.body.id;
     let highPassword = req.body.highPassword;

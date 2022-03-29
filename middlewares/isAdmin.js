@@ -1,11 +1,11 @@
-const { Admin } = require('../models/index');
+const User = require('../models/user');
 
 module.exports = (req, res, next) => {
   let id = req.body.id;
 
-  Admin
+  User
   .findOne({
-    where : { id_user : id }
+    _id: req.params.id,
   })
   .then(isAdmin => {
     if(isAdmin){

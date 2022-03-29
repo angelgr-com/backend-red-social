@@ -14,10 +14,10 @@ router.delete("/:id", UsersController.deleteById);
 
 // //superusuario
 //Subir de nivel a superusuario de Usuario por id
-router.put('/idAdmin', auth, admin ,  UsersController.idAdmin);
+router.put('/idAdmin', auth, isAdmin ,  UsersController.idAdmin);
 
 //Convertir en Auth de Usuario por id
-router.put('/idAuth', auth, admin , UsersController.idAuth);
+router.put('/idAuth', auth, isAdmin , UsersController.idAuth);
 
 
 
