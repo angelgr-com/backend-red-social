@@ -1,0 +1,43 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const threadSchema = new Schema({
+    title: {
+        type: String,
+    },
+    title_url: {
+        type: String,
+    },
+    theme: {
+        type: String,
+    },
+    posts: [{
+        author: {
+            type: String,
+            required: true
+        },
+        date: {
+            type: Date,
+            default: Date.now
+        },
+        content: {
+            type: String,
+            required: true,
+        },
+        likes: [{ type: String }],
+        dislikes: [{ type: String }],
+    }]
+});
+
+const toJSONConfig = {
+    // transform and ret are mongoose methods
+    // ret encrypts passwords
+    transform: (doc, ret, opt) => {
+        delete ret['password']
+        return ret
+    }
+}
+threadSchema.set('toJSON', toJSONConfig);
+
+const Thread = mongoose.model("Thread", threadSchema);
+module.exports = Thread;
