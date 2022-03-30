@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
 const postSchema = new Schema({
-    author: {
+    thread_id: {
         type: String,
-        required: true
+        default: "",
     },
     title: {
         type: String,
@@ -13,29 +12,30 @@ const postSchema = new Schema({
     title_url: {
         type: String,
     },
+    author: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    },
     content: {
         type: String,
         required: true,
     },
     likes: [{ type: String }],
-    date: {
-        type: Date,
-        default: Date.now
-    },
-    thread_id: {
-        type: String,
-        default: "",
-    }
+    dislikes: [{ type: String }],
 });
 
 const toJSONConfig = {
-    transform: (doc, ret, opt) => { //transform es un metodo de mongoose
-        delete ret['password'] //ret es un metodo encripta la password para enviarla con mas seguridad
+    // transform and ret are mongoose methods
+    // ret encrypts passwords
+    transform: (doc, ret, opt) => {
+        delete ret['password']
         return ret
     }
 }
-
-
 postSchema.set('toJSON', toJSONConfig);
 
 const Post = mongoose.model("Post", postSchema);

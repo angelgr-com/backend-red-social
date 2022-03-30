@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const UsersController = {};
 const jwt = require("jsonwebtoken");
 
-
 UsersController.register = async (req, res) => {
     User
     .findOne({

@@ -14,6 +14,7 @@ router.delete("/:title", PostsController.deleteThread);
 
 // Likes
 router.get("/likes/:author", PostsController.totalLikesByAuthor);
+router.get("/dislikes/:author", PostsController.totalDislikesByAuthor);
 
 
 module.exports = router;

@@ -124,10 +124,7 @@ PostsController.getThreadByTitle = async (req, res) => {
 PostsController.getThreadById = async (req, res) => {
     Post
     .find({
-        $or:[
-            {'_id': req.params._id},
-            {'thread_id': req.params._id}
-        ]
+        'thread_id': req.params._id
     })
     .then(posts => {
         if (posts) {
@@ -170,9 +167,6 @@ PostsController.totalLikesByAuthor = async (req, res) => {
     .then(posts => {
         if (posts) {
             console.log(posts);
-            // users.map(function(element){
-            //     return `${element.firstName} ${element.lastName}`;
-            // })
             let sum = 0;
             posts.map((post) => {
                 sum += post.likes.length;
@@ -180,7 +174,31 @@ PostsController.totalLikesByAuthor = async (req, res) => {
             res.status(200).send(`${req.params.author}'s total likes: ${sum}`);
         } else {
             res.status(400).send(
-                "Post not found."
+                "No posts found."
+            );
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+    });
+}
+
+PostsController.totalDislikesByAuthor = async (req, res) => {
+    Post
+    .find({
+        author: req.params.author,
+    })
+    .then(posts => {
+        if (posts) {
+            console.log(posts);
+            let sum = 0;
+            posts.map((post) => {
+                sum += post.dislikes.length;
+            });
+            res.status(200).send(`${req.params.author}'s total dislikes: ${sum}`);
+        } else {
+            res.status(400).send(
+                "No posts found."
             );
         }
     })
