@@ -50,7 +50,6 @@ ThreadsController.getThread = async (req, res) => {
             title_url: req.params.title,
         })
         .then(thread => {
-            console.log('getThread: ', thread);
             if (thread) {
                 res.status(200).send(thread);
             } else {
@@ -128,9 +127,6 @@ ThreadsController.newComment = async (req, res) => {
         title_url: req.params.title,
     })
     .then(thread => {
-        console.log('thread ---------------: ', thread[0]);
-        console.log('thread: ', thread);
-        console.log('thread.length: ', thread.length);
         if (thread) {
             const newObject = {
                 author: author, // author == nickname
@@ -144,17 +140,6 @@ ThreadsController.newComment = async (req, res) => {
             res
                 .status(201)
                 .send(`Thread successfully updated`);
-            // thread[thread.length].posts = {
-            //     author: author, // author == nickname
-            //     // date: req.body.date,
-            //     content: req.body.posts[0].content,
-            //     // likes: req.body.likes,
-            //     // dislikes: req.body.dislikes,
-            // };
-            // thread[thread.length].save();
-            // res
-            //     .status(201)
-            //     .send(`Thread successfully updated`);
         } else {
             res.status(401).send(
                 'Thread not found.'
