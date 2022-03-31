@@ -14,7 +14,6 @@ const threadSchema = new Schema({
     posts: [{
         author: {
             type: String,
-            required: true
         },
         date: {
             type: Date,
@@ -22,7 +21,6 @@ const threadSchema = new Schema({
         },
         content: {
             type: String,
-            required: true,
         },
         likes: [{ type: String }],
         dislikes: [{ type: String }],
