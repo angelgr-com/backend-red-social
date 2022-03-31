@@ -26,6 +26,8 @@ const userSchema = new Schema ({
         type: String,
         required: false
     },
+    following: [{ type: String }],
+    followers: [{ type: String }],
     isAdmin: {
         type: Boolean,
         default: false
