@@ -152,24 +152,24 @@ ThreadsController.newComment = async (req, res) => {
     });
 }
 
-// PostsController.getPost = async (req, res) => {
-//     Post
-//     .findById({
-//         _id: req.params._id,
-//     })
-//     .then(post => {
-//         if (post) {
-//             res.status(201).send(post);
-//         } else {
-//             res.status(401).send(
-//                 'Post not found.'
-//             )
-//         }
-//     })
-//     .catch(error => {
-//         res.status(400).send(error);
-//     });
-// }
+ThreadsController.getComments = async (req, res) => {
+    Thread
+    .find({
+        title_url: req.params.title,
+    })
+    .then(thread => {
+        if (thread) {
+            res.status(200).send(thread[0].posts);
+        } else {
+            res.status(401).send(
+                'Post not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+    });
+}
 
 // PostsController.updatePost = async (req, res) => {
 //     Post
