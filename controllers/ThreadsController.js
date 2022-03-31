@@ -172,14 +172,13 @@ ThreadsController.newComment = async (req, res) => {
 }
 
 ThreadsController.editComment = async (req, res) => {
-
     Thread
     .find({
         title_url: req.params.title,
     })
     .then(thread => {
         if (thread) {
-            console.log(thread[0].posts);
+            // console.log(thread[0].posts);
             // for (let i=0; i<thread[0].posts.length; i++) {
                 //     let post = thread[0].posts[i];
                 //     console.log('post._id._id: ', post._id._id);
@@ -207,6 +206,29 @@ ThreadsController.editComment = async (req, res) => {
     });
 }
 
+ThreadsController.deleteComment = async (req, res) => {
+    Thread
+    .find({
+        title_url: req.params.title,
+    })
+    .then(thread => {
+        if (thread) {
+            thread[0].posts.splice(req.params.index, 1);
+            thread[0].save();
+            res
+                .status(201)
+                .send(`Comment successfully edited`);
+        } else {
+            res.status(401).send(
+                'Thread not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+        console.log(error);
+    });
+}
 
 // PostsController.updatePost = async (req, res) => {
 //     Post
