@@ -80,6 +80,32 @@ ThreadsController.getThread = async (req, res) => {
         });
 }
 
+
+
+
+ThreadsController.getThreadByTheme = async (req, res) => {
+    Thread
+        .find({
+            theme: req.params.theme,
+        })
+        .then(thread => {
+            console.log('thread: ', thread);
+            if (thread) {
+                res.status(200).send(thread);
+            } else {
+                res.status(400).send(
+                    "Thread not found."
+                );
+            }
+        })
+        .catch(error => {
+            res.status(400).send(error);
+        });
+}
+
+
+
+
 ThreadsController.editThread = async (req, res) => {
     let author = formatString(req.body.posts[0].author);
     let title_url = formatString(req.body.title);
