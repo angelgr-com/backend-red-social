@@ -119,39 +119,6 @@ ThreadsController.deleteThread = async (req, res) => {
         });
 }
 
-ThreadsController.newComment = async (req, res) => {
-    let author = formatString(req.body.posts[0].author);
-
-    Thread
-    .find({
-        title_url: req.params.title,
-    })
-    .then(thread => {
-        if (thread) {
-            const newObject = {
-                author: author, // author == nickname
-                // date: req.body.date,
-                content: req.body.posts[0].content,
-                // likes: req.body.likes,
-                // dislikes: req.body.dislikes,
-            };
-            thread[thread.length-1].posts.push(newObject);
-            thread[thread.length-1].save();
-            res
-                .status(201)
-                .send(`Thread successfully updated`);
-        } else {
-            res.status(401).send(
-                'Thread not found.'
-            )
-        }
-    })
-    .catch(error => {
-        res.status(400).send(error);
-        console.log(error);
-    });
-}
-
 ThreadsController.getComments = async (req, res) => {
     Thread
     .find({
@@ -170,6 +137,76 @@ ThreadsController.getComments = async (req, res) => {
         res.status(400).send(error);
     });
 }
+
+ThreadsController.newComment = async (req, res) => {
+    let author = formatString(req.body.posts[0].author);
+
+    Thread
+    .find({
+        title_url: req.params.title,
+    })
+    .then(thread => {
+        if (thread) {
+            const newComment = {
+                author: author, // author == nickname
+                // date: req.body.date,
+                content: req.body.posts[0].content,
+                // likes: req.body.likes,
+                // dislikes: req.body.dislikes,
+            };
+            thread[thread.length-1].posts.push(newComment);
+            thread[thread.length-1].save();
+            res
+                .status(201)
+                .send(`Thread successfully updated`);
+        } else {
+            res.status(401).send(
+                'Thread not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+        console.log(error);
+    });
+}
+
+ThreadsController.editComment = async (req, res) => {
+
+    Thread
+    .find({
+        title_url: req.params.title,
+    })
+    .then(thread => {
+        if (thread) {
+            console.log(thread[0].posts);
+            // for (let i=0; i<thread[0].posts.length; i++) {
+                //     let post = thread[0].posts[i];
+                //     console.log('post._id._id: ', post._id._id);
+                //     console.log('typeof post._id: ', typeof(post._id));
+                //     // this if fails because comend _id is a object (e.g. new ObjectId("62457117b8edc5a8e446c814"))
+                //     // if (post._id.includes(req.body.id)) {
+                    //     //     post.comment = req.body.comment;
+                    //     // }
+                    // }
+            let post = thread[0].posts[req.body.index];
+            post.content = req.body.content;
+            thread[0].save();
+            res
+                .status(201)
+                .send(`Comment successfully edited`);
+        } else {
+            res.status(401).send(
+                'Thread not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+        console.log(error);
+    });
+}
+
 
 // PostsController.updatePost = async (req, res) => {
 //     Post

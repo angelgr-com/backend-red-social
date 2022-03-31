@@ -10,7 +10,8 @@ router.delete("/:title", ThreadsController.deleteThread);
 // Posts
 router.get("/comments/all/:title", ThreadsController.getComments);
 router.put("/comments/new/:title", ThreadsController.newComment);
-// router.put("/comments/edit/:id", ThreadsController.editComment);
+router.put("/comments/edit/:title", ThreadsController.editComment);
+// router.delete("/comments/delete/:title", ThreadsController.deleteComment)
 // router.put("/", ThreadsController.updatePost);
 // router.delete("/id/:_id", ThreadsController.deletePost);
 
