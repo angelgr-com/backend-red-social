@@ -212,6 +212,28 @@ UsersController.following = async (req, res) => {
     });
 }
 
+UsersController.followers = async (req, res) => {
+    User
+    .find({
+        nickname: req.params.nickname,
+    })
+    .then(user => {
+        if (user) {
+            res
+                .status(201)
+                .send(user[0].followers);
+        } else {
+            res.status(401).send(
+                'Thread not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+        console.log(error);
+    });
+}
+
 // Actualizar a admin del user por id
 // UsersController.idAdmin = (req, res) => {
 //     let id = req.body.id;

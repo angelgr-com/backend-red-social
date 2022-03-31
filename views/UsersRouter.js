@@ -14,7 +14,7 @@ router.delete("/:id", UsersController.deleteById);
 router.put("/following/add-to/:nickname", UsersController.addFollowing);
 router.put("/followers/add-to/:nickname", UsersController.addFollower);
 router.get("/following/:nickname", UsersController.following);
-// router.get("/followers/:nickname", UsersController.followers);
+router.get("/followers/:nickname", UsersController.followers);
 
 // //superusuario
 //Subir de nivel a superusuario de Usuario por id
