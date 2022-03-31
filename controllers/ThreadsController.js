@@ -217,7 +217,7 @@ ThreadsController.deleteComment = async (req, res) => {
             thread[0].save();
             res
                 .status(201)
-                .send(`Comment successfully edited`);
+                .send(`Comment successfully deleted`);
         } else {
             res.status(401).send(
                 'Thread not found.'
@@ -230,51 +230,33 @@ ThreadsController.deleteComment = async (req, res) => {
     });
 }
 
-// PostsController.updatePost = async (req, res) => {
-//     Post
-//     .findById({
-//         _id: req.body._id,
-//     })
-//     .then(post => {
-//         if (post) {
-//             post.title = req.body.title;
-//             post.content = req.body.content;
-//             post.thread_id = req.body.thread_id;
-//             post.save();
-//             res
-//             .status(201)
-//             .send(`Post successfully updated`);
-//         } else {
-//             res.status(401).send(
-//                 'Post not found.'
-//             )
-//         }
-//     })
-//     .catch(error => {
-//         res.status(400).send(error);
-//     });
-// }
-
-// PostsController.deletePost = async (req, res) => {
-//     Post
-//     .findByIdAndDelete({
-//         _id: req.params._id,
-//     })
-//     .then(post => {
-//         if (post) {
-//             res.status(201).send(
-//                 "Post deleted."
-//             );
-//         } else {
-//             res.status(400).send(
-//                 "Post not found."
-//             );
-//         }
-//     })
-//     .catch(error => {
-//         res.status(400).send(error);
-//     });
-// }
+ThreadsController.newLike = async (req, res) => {
+    Thread
+    .find({
+        title_url: req.params.title,
+    })
+    .then(thread => {
+        if (thread) {
+            console.log(thread[0].posts);
+            let post = thread[0].posts[req.body.index];
+            console.log('post to add like: ', post);
+            post.likes.push(req.body.nickname);
+            console.log('post with like added: ', post);
+            thread[0].save();
+            res
+                .status(201)
+                .send(`Like successfully added`);
+        } else {
+            res.status(401).send(
+                'Thread not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+        console.log(error);
+    });
+}
 
 // PostsController.totalLikesByAuthor = async (req, res) => {
 //     Post

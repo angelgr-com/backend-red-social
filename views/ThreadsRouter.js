@@ -16,6 +16,7 @@ router.delete("/comments/delete/:index/:title", ThreadsController.deleteComment)
 // router.delete("/id/:_id", ThreadsController.deletePost);
 
 // Likes
+router.put("/likes/:title", ThreadsController.newLike);
 // router.get("/likes/:author", ThreadsController.totalLikesByAuthor);
 // router.get("/dislikes/:author", ThreadsController.totalDislikesByAuthor);
 
