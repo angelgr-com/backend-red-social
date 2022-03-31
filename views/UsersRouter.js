@@ -8,13 +8,13 @@ router.post("/register", UsersController.register);
 router.post("/login", UsersController.login);
 
 // Profile
-router.get("/:id", UsersController.findById);
-router.put("/:id", UsersController.updateById);
-router.delete("/:id", UsersController.deleteById);
-router.put("/following/add-to/:nickname", UsersController.addFollowing);
-router.put("/followers/add-to/:nickname", UsersController.addFollower);
-router.get("/following/:nickname", UsersController.following);
-router.get("/followers/:nickname", UsersController.followers);
+router.get("/:id", auth, UsersController.findById);
+router.put("/:id", auth, UsersController.updateById);
+router.delete("/:id", auth, isAdmin, UsersController.deleteById);
+router.put("/following/add-to/:nickname", auth, UsersController.addFollowing);
+router.put("/followers/add-to/:nickname", auth, UsersController.addFollower);
+router.get("/following/:nickname", auth, UsersController.following);
+router.get("/followers/:nickname", auth, UsersController.followers);
 
 // //superusuario
 //Subir de nivel a superusuario de Usuario por id
