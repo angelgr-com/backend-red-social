@@ -142,20 +142,42 @@ UsersController.deleteById = async (req, res) => {
     });
 }
 
-UsersController.follow = async (req, res) => {
+UsersController.addFollowing = async (req, res) => {
     User
     .find({
         nickname: req.params.nickname,
     })
     .then(user => {
         if (user) {
-            console.log('user antes de añadir follow', user);
             user[0].following.push(req.body.follow);
-            console.log('user después de añadir follow', user);
             user[0].save();
             res
                 .status(201)
                 .send(`${req.params.nickname} now follows ${req.body.follow}`);
+        } else {
+            res.status(401).send(
+                'Thread not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+        console.log(error);
+    });
+}
+
+UsersController.addFollower = async (req, res) => {
+    User
+    .find({
+        nickname: req.params.nickname,
+    })
+    .then(user => {
+        if (user) {
+            user[0].followers.push(req.body.follower);
+            user[0].save();
+            res
+                .status(201)
+                .send(`${req.params.nickname} has a new follower: ${req.body.follower}`);
         } else {
             res.status(401).send(
                 'Thread not found.'
