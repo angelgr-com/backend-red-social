@@ -3,6 +3,7 @@ const ThreadsController = require('../controllers/ThreadsController');
 
 // Threads
 router.post("/", ThreadsController.newThread);
+router.get("/", ThreadsController.getAllThreads);
 router.get("/:title", ThreadsController.getThread);
 router.put("/:title", ThreadsController.editThread);
 router.delete("/:title", ThreadsController.deleteThread);

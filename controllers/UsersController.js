@@ -142,6 +142,98 @@ UsersController.deleteById = async (req, res) => {
     });
 }
 
+UsersController.addFollowing = async (req, res) => {
+    User
+    .find({
+        nickname: req.params.nickname,
+    })
+    .then(user => {
+        if (user) {
+            user[0].following.push(req.body.follow);
+            user[0].save();
+            res
+                .status(201)
+                .send(`${req.params.nickname} now follows ${req.body.follow}`);
+        } else {
+            res.status(401).send(
+                'Thread not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+        console.log(error);
+    });
+}
+
+UsersController.addFollower = async (req, res) => {
+    User
+    .find({
+        nickname: req.params.nickname,
+    })
+    .then(user => {
+        if (user) {
+            user[0].followers.push(req.body.follower);
+            user[0].save();
+            res
+                .status(201)
+                .send(`${req.params.nickname} has a new follower: ${req.body.follower}`);
+        } else {
+            res.status(401).send(
+                'Thread not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+        console.log(error);
+    });
+}
+
+UsersController.following = async (req, res) => {
+    User
+    .find({
+        nickname: req.params.nickname,
+    })
+    .then(user => {
+        if (user) {
+            res
+                .status(201)
+                .send(user[0].following);
+        } else {
+            res.status(401).send(
+                'Thread not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+        console.log(error);
+    });
+}
+
+UsersController.followers = async (req, res) => {
+    User
+    .find({
+        nickname: req.params.nickname,
+    })
+    .then(user => {
+        if (user) {
+            res
+                .status(201)
+                .send(user[0].followers);
+        } else {
+            res.status(401).send(
+                'Thread not found.'
+            )
+        }
+    })
+    .catch(error => {
+        res.status(400).send(error);
+        console.log(error);
+    });
+}
+
 // Actualizar a admin del user por id
 // UsersController.idAdmin = (req, res) => {
 //     let id = req.body.id;

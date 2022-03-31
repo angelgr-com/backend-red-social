@@ -44,6 +44,23 @@ ThreadsController.newThread = async (req, res) => {
         });
 }
 
+ThreadsController.getAllThreads = async (req, res) => {
+    Thread
+        .find()
+        .then(threads => {
+            if (threads) {
+                res.status(200).send(threads);
+            } else {
+                res.status(400).send(
+                    "Thread not found."
+                );
+            }
+        })
+        .catch(error => {
+            res.status(400).send(error);
+        });
+}
+
 ThreadsController.getThread = async (req, res) => {
     Thread
         .find({
