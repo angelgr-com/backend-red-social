@@ -12,11 +12,10 @@ router.get("/comments/all/:title", ThreadsController.getComments);
 router.put("/comments/new/:title", ThreadsController.newComment);
 router.put("/comments/edit/:title", ThreadsController.editComment);
 router.delete("/comments/delete/:index/:title", ThreadsController.deleteComment)
-// router.put("/", ThreadsController.updatePost);
-// router.delete("/id/:_id", ThreadsController.deletePost);
 
 // Likes
 router.put("/likes/:title", ThreadsController.newLike);
+router.get("/likes/:index/:title", ThreadsController.postLikes);
 // router.get("/likes/:author", ThreadsController.totalLikesByAuthor);
 // router.get("/dislikes/:author", ThreadsController.totalDislikesByAuthor);
 
