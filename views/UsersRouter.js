@@ -8,9 +8,9 @@ router.post("/register", UsersController.register);
 router.post("/login", UsersController.login);
 
 // Profile
-router.get("/:id", auth, UsersController.findById);
-router.put("/:id", auth, UsersController.updateById);
-router.delete("/:id", auth, isAdmin, UsersController.deleteById);
+router.get("/:id", auth, UsersController.find);
+router.put("/:id", auth, UsersController.update);
+router.delete("/:id", auth, isAdmin, UsersController.delete);
 router.put("/following/add-to/:nickname", auth, UsersController.addFollowing);
 router.put("/followers/add-to/:nickname", auth, UsersController.addFollower);
 router.get("/following/:nickname", auth, UsersController.following);
