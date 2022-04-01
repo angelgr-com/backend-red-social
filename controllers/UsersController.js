@@ -70,7 +70,17 @@ UsersController.login = async (req, res) => {
                             expiresIn: process.env.AUTH_EXPIRES,
                         }
                     );
-                    res.status(200).send(user);
+                    res.status(200).send({
+                        _id: user._id,
+                        name: user.name,
+                        nickname: user.nickname,
+                        email: user.email,
+                        avatar: user.avatar,
+                        following: user.following,
+                        followers: user.followers,
+                        isAdmin: user.isAdmin,
+                        token: token
+                    });
                 } else {
                     res.status(401).json({ msg: 'Invalid user or password.' });
                 }
