@@ -83,7 +83,7 @@ ThreadsController.getThread = async (req, res) => {
 
 
 
-ThreadsController.getThreadByTheme = async (req, res) => {
+ThreadsController.getThreadsByTheme = async (req, res) => {
     Thread
         .find({
             theme: req.params.theme,
