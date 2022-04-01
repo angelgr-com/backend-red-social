@@ -70,11 +70,7 @@ UsersController.login = async (req, res) => {
                             expiresIn: process.env.AUTH_EXPIRES,
                         }
                     );
-                    res.status(200).json({
-                        name: user.nickname,
-                        id: user._id,
-                        token: token,
-                    });
+                    res.status(200).send(user);
                 } else {
                     res.status(401).json({ msg: 'Invalid user or password.' });
                 }
