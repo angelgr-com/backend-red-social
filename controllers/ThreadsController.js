@@ -284,12 +284,11 @@ ThreadsController.newLike = async (req, res) => {
     })
     .then(thread => {
         if (thread) {
-            let post = thread[0].posts[req.body.index];
-            post.likes.push(req.body.nickname);
+            thread[0].posts[req.params.index].likes++;
             thread[0].save();
             res
                 .status(201)
-                .send(`Like successfully added`);
+                .send(`Like successfully added. Total likes: ${thread[0].posts[req.params.index].likes}`);
         } else {
             res.status(401).send(
                 'Thread not found.'
