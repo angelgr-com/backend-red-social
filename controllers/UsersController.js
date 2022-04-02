@@ -118,14 +118,11 @@ UsersController.update = async (req, res) => {
         })
             .then((user) => {
                 if (user) {
-                    console.log('if was executed');
                     user[0].name = req.body.name;
                     user[0].nickname = req.body.nickname;
                     user[0].email = req.body.email;
                     user[0].avatar = req.body.avatar;
-                    console.log('user before save in update method: ', user);
                     user[0].save();
-                    console.log('save was executed');
                     res.status(201).send(user);
                 } else {
                     res.status(401).send('User not found.');
@@ -162,17 +159,17 @@ UsersController.delete = async (req, res) => {
     }
 };
 
-UsersController.addFollowing = async (req, res) => {
+UsersController.userFollows = async (req, res) => {
     if (isAccessGranted(req)) {
         User.find({
-            nickname: req.params.nickname,
+            nickname: req.params.user,
         })
             .then((user) => {
                 if (user) {
-                    user[0].following.push(req.body.follow);
+                    user[0].following.push(req.params.nickname);
                     user[0].save();
                     res.status(201).send(
-                        `${req.params.nickname} now follows ${req.body.follow}`
+                        `${req.params.user} now follows ${req.params.nickname}`
                     );
                 } else {
                     res.status(401).send('Thread not found.');
@@ -194,10 +191,10 @@ UsersController.addFollower = async (req, res) => {
         })
             .then((user) => {
                 if (user) {
-                    user[0].followers.push(req.body.follower);
+                    user[0].followers.push(req.params.user);
                     user[0].save();
                     res.status(201).send(
-                        `${req.params.nickname} has a new follower: ${req.body.follower}`
+                        `${req.params.nickname} has a new follower: ${req.params.user}`
                     );
                 } else {
                     res.status(401).send('Thread not found.');
