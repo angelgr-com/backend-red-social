@@ -301,17 +301,16 @@ ThreadsController.newLike = async (req, res) => {
     });
 }
 
-ThreadsController.postLikes = async (req, res) => {
+ThreadsController.likesFromComment = async (req, res) => {
     Thread
     .find({
         title_url: req.params.title,
     })
     .then(thread => {
         if (thread) {
-            let post = thread[0].posts[req.params.index];
             res
-                .status(201)
-                .send(`${post.likes.length} likes`);
+                .status(200)
+                .send(`${thread[0].posts[req.params.index].likes} likes`);
         } else {
             res.status(401).send(
                 'Thread not found.'

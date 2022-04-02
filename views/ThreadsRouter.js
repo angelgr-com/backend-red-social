@@ -28,8 +28,10 @@ router.delete("/comments/delete/:index/:title", ThreadsController.deleteComment)
 // router.delete("/comments/delete/:index/:title", auth, ThreadsController.deleteComment)
 
 // Likes
-router.put("/likes/:index/:title", auth, ThreadsController.newLike);
-router.get("/likes/:index/:title", auth, ThreadsController.postLikes);
+router.put("/likes/:index/:title", ThreadsController.newLike);
+router.get("/likes/:index/:title", ThreadsController.likesFromComment);
+// router.put("/likes/:index/:title", auth, ThreadsController.newLike);
+// router.get("/likes/:index/:title", auth, ThreadsController.likesFromComment);
 // router.get("/likes/:author", ThreadsController.totalLikesByAuthor);
 // router.get("/dislikes/:author", ThreadsController.totalDislikesByAuthor);
 
