@@ -146,9 +146,13 @@ ThreadsController.editThread = async (req, res) => {
 ThreadsController.deleteThread = async (req, res) => {
     Thread
         .deleteOne({
-            title_url: req.params.title,
+            $or: [
+                { title_url: req.params.id }, 
+                { _id: req.params.id }, 
+            ]
         })
         .then(thread => {
+            console.log('deleted thread: ', thread);
             if (thread) {
                 res.status(200).send("Thread deleted.");
             } else {
@@ -280,12 +284,11 @@ ThreadsController.newLike = async (req, res) => {
     })
     .then(thread => {
         if (thread) {
-            let post = thread[0].posts[req.body.index];
-            post.likes.push(req.body.nickname);
+            thread[0].posts[req.params.index].likes++;
             thread[0].save();
             res
                 .status(201)
-                .send(`Like successfully added`);
+                .send(`Like successfully added. Total likes: ${thread[0].posts[req.params.index].likes}`);
         } else {
             res.status(401).send(
                 'Thread not found.'
@@ -298,17 +301,16 @@ ThreadsController.newLike = async (req, res) => {
     });
 }
 
-ThreadsController.postLikes = async (req, res) => {
+ThreadsController.likesFromComment = async (req, res) => {
     Thread
     .find({
         title_url: req.params.title,
     })
     .then(thread => {
         if (thread) {
-            let post = thread[0].posts[req.params.index];
             res
-                .status(201)
-                .send(`${post.likes.length} likes`);
+                .status(200)
+                .send(`${thread[0].posts[req.params.index].likes} likes`);
         } else {
             res.status(401).send(
                 'Thread not found.'

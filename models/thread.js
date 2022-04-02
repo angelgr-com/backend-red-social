@@ -22,8 +22,14 @@ const threadSchema = new Schema({
         content: {
             type: String,
         },
-        likes: [{ type: String }],
-        dislikes: [{ type: String }],
+        likes: {
+            type: Number,
+            default: 0
+        },
+        dislikes: {
+            type: Number,
+            default: 0
+        },
     }]
 });
 
