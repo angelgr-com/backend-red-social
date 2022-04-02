@@ -7,14 +7,16 @@ const jwt = require('jsonwebtoken');
 const isUserOwnData = (req) => {
     let loggedUser;
     // Check token validity
-    let token = req.headers.authorization.split(' ')[1];
-    jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
-        if (err) {
-            console.log('Invalid token: ', err);
-        } else {
-            loggedUser = decoded;
-        }
-    });
+    if (req.headers.authorization) {
+        let token = req.headers.authorization.split(' ')[1];
+        jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
+            if (err) {
+                console.log('Invalid token: ', err);
+            } else {
+                loggedUser = decoded;
+            }
+        });
+    }
 
     return loggedUser.user._id === req.params.id;
 };

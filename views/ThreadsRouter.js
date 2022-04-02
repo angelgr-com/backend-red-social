@@ -9,7 +9,7 @@ router.get("/", ThreadsController.getAllThreads);
 router.get("/:title", ThreadsController.getThread);
 router.get("/theme/:theme", ThreadsController.getThreadsByTheme);
 router.put("/:title", ThreadsController.editThread);
-router.delete("/:title", ThreadsController.deleteThread);
+router.delete("/:id", ThreadsController.deleteThread);
 // router.post("/", auth, ThreadsController.newThread);
 // router.get("/", auth, isAdmin, ThreadsController.getAllThreads);
 // router.get("/:title", auth, ThreadsController.getThread);
