@@ -3,23 +3,7 @@ const User = require('../models/user.js');
 const bcrypt = require('bcrypt');
 const UsersController = {};
 const jwt = require('jsonwebtoken');
-
-const isUserOwnData = (req) => {
-    let loggedUser;
-    // Check token validity
-    if (req.headers.authorization) {
-        let token = req.headers.authorization.split(' ')[1];
-        jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
-            if (err) {
-                console.log('Invalid token: ', err);
-            } else {
-                loggedUser = decoded;
-            }
-        });
-    }
-
-    return loggedUser.user._id === req.params.id;
-};
+const isAccessGranted = require("../middlewares/isAccessGranted");
 
 UsersController.register = async (req, res) => {
     User.findOne({
@@ -96,10 +80,9 @@ UsersController.login = async (req, res) => {
 };
 
 UsersController.find = async (req, res) => {
-    if (isUserOwnData(req)) {
+    if (isAccessGranted(req)) {
         User.find({
             $or: [
-                { _id: req.params.id },
                 { nickname: req.params.id },
                 { email: req.params.id },
             ],
@@ -126,124 +109,150 @@ UsersController.find = async (req, res) => {
 };
 
 UsersController.update = async (req, res) => {
-    User.find({
-        $or: [
-            { _id: req.params.id },
-            { nickname: req.params.id },
-            { email: req.params.id },
-        ],
-    })
-        .then((user) => {
-            if (user) {
-                user.name = req.body.name;
-                user.nickname = req.body.nickname;
-                user.email = req.body.email;
-                user.avatar = req.body.avatar;
-                user.save();
-                res.status(201).send(user);
-            } else {
-                res.status(401).send('User not found.');
-            }
+    if (isAccessGranted(req)) {
+        User.find({
+            $or: [
+                { nickname: req.params.id },
+                { email: req.params.id },
+            ],
         })
-        .catch((error) => {
-            res.status(400).send(error);
-        });
+            .then((user) => {
+                if (user) {
+                    console.log('if was executed');
+                    user[0].name = req.body.name;
+                    user[0].nickname = req.body.nickname;
+                    user[0].email = req.body.email;
+                    user[0].avatar = req.body.avatar;
+                    console.log('user before save in update method: ', user);
+                    user[0].save();
+                    console.log('save was executed');
+                    res.status(201).send(user);
+                } else {
+                    res.status(401).send('User not found.');
+                }
+            })
+            .catch((error) => {
+                res.status(400).send(error);
+            });
+    } else {
+        res.status(401).send('Unauthorized access');
+    }
 };
 
 UsersController.delete = async (req, res) => {
-    User.findByIdAndDelete({
-        $or: [
-            { _id: req.params.id },
-            { nickname: req.params.id },
-            { email: req.params.id },
-        ],
-    })
-        .then((user) => {
-            if (user) {
-                res.status(201).send('User deleted.');
-            } else {
-                res.status(400).send('User not found.');
-            }
+    if (isAccessGranted(req)) {
+        User.deleteOne({
+            $or: [
+                { nickname: req.params.id },
+                { email: req.params.id },
+            ],
         })
-        .catch((error) => {
-            res.status(400).send(error);
-        });
+            .then((user) => {
+                if (user) {
+                    res.status(201).send('User deleted.');
+                } else {
+                    res.status(400).send('User not found.');
+                }
+            })
+            .catch((error) => {
+                res.status(400).send(error);
+            });
+    } else {
+        res.status(401).send('Unauthorized access');
+    }
 };
 
 UsersController.addFollowing = async (req, res) => {
-    User.find({
-        nickname: req.params.nickname,
-    })
-        .then((user) => {
-            if (user) {
-                user[0].following.push(req.body.follow);
-                user[0].save();
-                res.status(201).send(
-                    `${req.params.nickname} now follows ${req.body.follow}`
-                );
-            } else {
-                res.status(401).send('Thread not found.');
-            }
+    if (isAccessGranted(req)) {
+        User.find({
+            nickname: req.params.nickname,
         })
-        .catch((error) => {
-            res.status(400).send(error);
-            console.log(error);
-        });
+            .then((user) => {
+                if (user) {
+                    user[0].following.push(req.body.follow);
+                    user[0].save();
+                    res.status(201).send(
+                        `${req.params.nickname} now follows ${req.body.follow}`
+                    );
+                } else {
+                    res.status(401).send('Thread not found.');
+                }
+            })
+            .catch((error) => {
+                res.status(400).send(error);
+                console.log(error);
+            });
+    } else {
+        res.status(401).send('Unauthorized access');
+    }
 };
 
 UsersController.addFollower = async (req, res) => {
-    User.find({
-        nickname: req.params.nickname,
-    })
-        .then((user) => {
-            if (user) {
-                user[0].followers.push(req.body.follower);
-                user[0].save();
-                res.status(201).send(
-                    `${req.params.nickname} has a new follower: ${req.body.follower}`
-                );
-            } else {
-                res.status(401).send('Thread not found.');
-            }
+    if (isAccessGranted(req)) {
+        User.find({
+            nickname: req.params.nickname,
         })
-        .catch((error) => {
-            res.status(400).send(error);
-            console.log(error);
-        });
+            .then((user) => {
+                if (user) {
+                    user[0].followers.push(req.body.follower);
+                    user[0].save();
+                    res.status(201).send(
+                        `${req.params.nickname} has a new follower: ${req.body.follower}`
+                    );
+                } else {
+                    res.status(401).send('Thread not found.');
+                }
+            })
+            .catch((error) => {
+                res.status(400).send(error);
+                console.log(error);
+            });
+    } else {
+        res.status(401).send('Unauthorized access');
+    }
 };
 
 UsersController.following = async (req, res) => {
-    User.find({
-        nickname: req.params.nickname,
-    })
-        .then((user) => {
-            if (user) {
-                res.status(201).send(user[0].following);
-            } else {
-                res.status(401).send('Thread not found.');
-            }
+    if (isAccessGranted(req)) {
+        User.find({
+            nickname: req.params.nickname,
         })
-        .catch((error) => {
-            res.status(400).send(error);
-            console.log(error);
-        });
+            .then((user) => {
+                if (user) {
+                    res.status(201).send(user[0].following);
+                } else {
+                    res.status(401).send('Thread not found.');
+                }
+            })
+            .catch((error) => {
+                res.status(400).send(error);
+                console.log(error);
+            });
+    } else {
+        res.status(401).send('Unauthorized access');
+    }
 };
 
 UsersController.followers = async (req, res) => {
-    User.find({
-        nickname: req.params.nickname,
-    })
-        .then((user) => {
-            if (user) {
-                res.status(201).send(user[0].followers);
-            } else {
-                res.status(401).send('Thread not found.');
-            }
+    if (isAccessGranted(req)) {
+
+        User.find({
+            nickname: req.params.nickname,
         })
-        .catch((error) => {
-            res.status(400).send(error);
-            console.log(error);
-        });
+            .then((user) => {
+                if (user) {
+                    res.status(201).send(user[0].followers);
+                } else {
+                    res.status(401).send('Thread not found.');
+                }
+            })
+            .catch((error) => {
+                res.status(400).send(error);
+                console.log(error);
+            });
+    } else {
+        res.status(401).send('Unauthorized access');
+    }
 };
 
 // Actualizar a admin del user por id
