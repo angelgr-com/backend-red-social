@@ -123,6 +123,7 @@ ThreadsController.editThread = async (req, res) => {
                 thread[0].posts = [{
                     title: req.body.title,
                     title_url: req.body.title_url,
+                    author: thread[0].posts[0].author,
                     // author: author, // author == nickname
                     // date: req.body.date,
                     // content: req.body.posts[0].content,
