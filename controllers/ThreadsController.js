@@ -200,7 +200,7 @@ ThreadsController.newComment = async (req, res) => {
             thread[thread.length-1].save();
             res
                 .status(201)
-                .send(`Thread successfully updated`);
+                .send(`New comment successfully added`);
         } else {
             res.status(401).send(
                 'Thread not found.'
