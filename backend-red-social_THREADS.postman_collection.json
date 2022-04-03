@@ -1,0 +1,345 @@
+{
+	"info": {
+		"_postman_id": "866aeb3d-0033-4c51-8c07-7588e8e29018",
+		"name": "backend-red-social_THREADS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "newThread",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"nuevo hilo\",\r\n    \"theme\": \"española\",\r\n    \"posts\": [\r\n        {\r\n            \"author\": \"angel\",\r\n            \"content\": \"Comentario inicial que abre el hilo\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}threads/",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getThread",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDYyNiwiZXhwIjoxNjQ5MDM1MDI2fQ.aLPut2P6bbrBuct4Kg6XWfK9rQkGcnvS6v2I40fJctk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}threads/best-spanish-paella-recipe",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						"best-spanish-paella-recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllThreads",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDYyNiwiZXhwIjoxNjQ5MDM1MDI2fQ.aLPut2P6bbrBuct4Kg6XWfK9rQkGcnvS6v2I40fJctk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}threads/",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getThreadsByTheme",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDYyNiwiZXhwIjoxNjQ5MDM1MDI2fQ.aLPut2P6bbrBuct4Kg6XWfK9rQkGcnvS6v2I40fJctk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}threads/theme/española",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						"theme",
+						"española"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editThread",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDYyNiwiZXhwIjoxNjQ5MDM1MDI2fQ.aLPut2P6bbrBuct4Kg6XWfK9rQkGcnvS6v2I40fJctk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"cambiar-titulo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}threads/best-spanish-paella-recipe",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						"best-spanish-paella-recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteThread",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDYyNiwiZXhwIjoxNjQ5MDM1MDI2fQ.aLPut2P6bbrBuct4Kg6XWfK9rQkGcnvS6v2I40fJctk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}threads/best-spanish-paella-recipe",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						"best-spanish-paella-recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getComments",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDYyNiwiZXhwIjoxNjQ5MDM1MDI2fQ.aLPut2P6bbrBuct4Kg6XWfK9rQkGcnvS6v2I40fJctk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}threads/comments/all/best-spanish-paella-recipe",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						"comments",
+						"all",
+						"best-spanish-paella-recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newComment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"posts\": [\r\n        {\r\n            \"author\": \"angel\",\r\n            \"content\": \"otro comentario nuevo\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}threads/comments/new/best-spanish-paella-recipe",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						"comments",
+						"new",
+						"best-spanish-paella-recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editComment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"Comentario nuevo editado\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}threads/comments/edit/6249e9ac0caf648a9aeb3aba/best-spanish-paella-recipe",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						"comments",
+						"edit",
+						"6249e9ac0caf648a9aeb3aba",
+						"best-spanish-paella-recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteComment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}threads/comments/delete/62498e187f2f7b2ce540d14a/hilo-para-probar-los-likes",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						"comments",
+						"delete",
+						"62498e187f2f7b2ce540d14a",
+						"hilo-para-probar-los-likes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newLike",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTVhY2ViYWUzNDgzYTJmMjZlNCIsIm5hbWUiOiJSYWZhIiwibmlja25hbWUiOiJyYWZhIiwiZW1haWwiOiJyYWZhQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6W10sImZvbGxvd2VycyI6W10sImlzQWRtaW4iOmZhbHNlLCJfX3YiOjB9LCJpYXQiOjE2NDg5MTI4MDAsImV4cCI6MTY0ODkyNzIwMH0.NmIKpWjaJlU4d2oFzBav1C98iMoKx-NnYOrb5hcO_Fs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}threads/likes/62498685951fec56769a1fe0/hilo-para-probar-los-likes",
+					"host": [
+						"{{base_url}}threads"
+					],
+					"path": [
+						"likes",
+						"62498685951fec56769a1fe0",
+						"hilo-para-probar-los-likes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

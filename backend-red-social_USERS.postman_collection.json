@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "d7265118-030e-4f23-a2a3-255934bfd3a2",
+		"name": "backend-red-social_USERS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Anibal\",\r\n    \"nickname\": \"anibal\",\r\n    \"email\": \"anibal@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"avatar\": \"\",\r\n    \"isAdmin\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}users/register",
+					"host": [
+						"{{base_url}}users"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDYyNiwiZXhwIjoxNjQ5MDM1MDI2fQ.aLPut2P6bbrBuct4Kg6XWfK9rQkGcnvS6v2I40fJctk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"anibal@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}users/login",
+					"host": [
+						"{{base_url}}users"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTUxY2ViYWUzNDgzYTJmMjZlMSIsIm5hbWUiOiJBbmdlbCIsIm5pY2tuYW1lIjoiYW5nZWwiLCJlbWFpbCI6ImFuZ2VsQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJyb2RyaWdvIiwicmFmYSJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJhZmEiXSwiaXNBZG1pbiI6ZmFsc2UsIl9fdiI6MjF9LCJpYXQiOjE2NDkwMjAyNjksImV4cCI6MTY0OTAzNDY2OX0.gzw-m1JAGHbe970iEJyQDKTPLRoQUIePNiHCcDdBnmk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}users/angel",
+					"host": [
+						"{{base_url}}users"
+					],
+					"path": [
+						"angel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDM3MiwiZXhwIjoxNjQ5MDM0NzcyfQ.XV8ZE1NxPjOq4sr4K3we5lIcvajSU4YOEeIN2-XOnF4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Rodrigo\",\r\n    \"nickname\": \"\",\r\n    \"email\": \"rodrigo@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"avatar\": \"\",\r\n    \"isAdmin\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}users/rodrigo",
+					"host": [
+						"{{base_url}}users"
+					],
+					"path": [
+						"rodrigo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}users/postman2",
+					"host": [
+						"{{base_url}}users"
+					],
+					"path": [
+						"postman2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userFollows",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDUzMywiZXhwIjoxNjQ5MDM0OTMzfQ.CdS9u1fHldBliORkcEzXdzst722lrLOBNtlmLb0Co3Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}users/angel/follows/rafa",
+					"host": [
+						"{{base_url}}users"
+					],
+					"path": [
+						"angel",
+						"follows",
+						"rafa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addFollower",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDUzMywiZXhwIjoxNjQ5MDM0OTMzfQ.CdS9u1fHldBliORkcEzXdzst722lrLOBNtlmLb0Co3Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}users/rafa/add-follower/angel",
+					"host": [
+						"{{base_url}}users"
+					],
+					"path": [
+						"rafa",
+						"add-follower",
+						"angel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "following",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDUzMywiZXhwIjoxNjQ5MDM0OTMzfQ.CdS9u1fHldBliORkcEzXdzst722lrLOBNtlmLb0Co3Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}users/following/angel",
+					"host": [
+						"{{base_url}}users"
+					],
+					"path": [
+						"following",
+						"angel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "followers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyNDU5OTYxY2ViYWUzNDgzYTJmMjZlNyIsIm5hbWUiOiJSb2RyaWdvIiwibmlja25hbWUiOiJyb2RyaWdvIiwiZW1haWwiOiJyb2RyaWdvQGdtYWlsLmNvbSIsImF2YXRhciI6IiIsImZvbGxvd2luZyI6WyJhbmdlbCJdLCJmb2xsb3dlcnMiOlsiUm9kcmlnbyIsIlJvZHJpZ28iLCJSb2RyaWdvIiwiUmFmYSIsIlJhZmEiLCJSYWZhIl0sImlzQWRtaW4iOnRydWUsIl9fdiI6N30sImlhdCI6MTY0OTAyMDUzMywiZXhwIjoxNjQ5MDM0OTMzfQ.CdS9u1fHldBliORkcEzXdzst722lrLOBNtlmLb0Co3Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}users/following/rodrigo",
+					"host": [
+						"{{base_url}}users"
+					],
+					"path": [
+						"following",
+						"rodrigo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
