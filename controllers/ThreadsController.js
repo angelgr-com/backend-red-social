@@ -107,8 +107,8 @@ ThreadsController.getThreadsByTheme = async (req, res) => {
 
 
 ThreadsController.editThread = async (req, res) => {
-    let author = formatString(req.body.posts[0].author);
-    // let title_url = formatString(req.body.title);
+    // let author = formatString(req.body.posts[0].author);
+    let title_url = formatString(req.body.title);
     // console.log('req.body.posts.author', req.body.posts[0].author);
     // console.log('author: ', author);
     Thread
@@ -119,7 +119,7 @@ ThreadsController.editThread = async (req, res) => {
             if (thread) {
                 thread[0].title = req.body.title;
                 // thread[0].title_url = title_url;
-                thread[0].theme = req.body.theme;
+                // thread[0].theme = req.body.theme;
                 thread[0].posts = [{
                     title: req.body.title,
                     // author: author, // author == nickname
