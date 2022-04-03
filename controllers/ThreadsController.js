@@ -89,7 +89,7 @@ ThreadsController.getThreadsByTheme = async (req, res) => {
             theme: req.params.theme,
         })
         .then(thread => {
-            console.log('thread: ', thread);
+            // console.log('thread: ', thread);
             if (thread) {
                 res.status(200).send(thread);
             } else {
@@ -149,7 +149,7 @@ ThreadsController.deleteThread = async (req, res) => {
     Thread
         .deleteOne({ title_url: req.params.id })
         .then(thread => {
-            console.log('deleted thread: ', thread);
+            // console.log('deleted thread: ', thread);
             if (thread) {
                 res.status(200).send("Thread deleted.");
             } else {
