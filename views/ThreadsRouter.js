@@ -20,7 +20,7 @@ router.delete("/:id", ThreadsController.deleteThread);
 // Posts
 router.get("/comments/all/:title", ThreadsController.getComments);
 router.put("/comments/new/:title", ThreadsController.newComment);
-router.put("/comments/edit/:title", ThreadsController.editComment);
+router.put("/comments/edit/:id/:title", ThreadsController.editComment);
 router.delete("/comments/delete/:id/:title", ThreadsController.deleteComment)
 // router.get("/comments/all/:title", auth, ThreadsController.getComments);
 // router.put("/comments/new/:title", auth, ThreadsController.newComment);
