@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 module.exports = (req) => {
     let loggedUser;
     // Check token validity
@@ -10,8 +12,11 @@ module.exports = (req) => {
                 loggedUser = decoded;
             }
         });
-        return loggedUser.user._id === req.params.id;
+        console.log('loggedUser.user._id: ', loggedUser.user._id);
+        console.log('req.params.id: ', req.params.id);
+        return (loggedUser.user._id === req.params.id) ||
+               (loggedUser.user.nickname === req.params.id);
     }
     // delete this return when auth and isAdmin will be activated again
-    return true;
+    // return true;
 };

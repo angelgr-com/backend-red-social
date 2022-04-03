@@ -13,7 +13,7 @@ router.put("/:id", auth, UsersController.update);
 router.delete("/:id", auth, isAdmin, UsersController.delete);
 router.put("/:user/follows/:nickname", auth, UsersController.userFollows);
 router.put("/:nickname/add-follower/:user", auth, UsersController.addFollower);
-router.get("/following/:nickname", auth, UsersController.following);
+router.get("/following/:id", auth, UsersController.following);
 router.get("/followers/:nickname", auth, UsersController.followers);
 // router.get("/:id", auth, UsersController.find);
 // router.put("/:id", auth, UsersController.update);

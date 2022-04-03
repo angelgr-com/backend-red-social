@@ -129,7 +129,6 @@ UsersController.find = async (req, res) => {
 };
 
 UsersController.update = async (req, res) => {
-    console.log(req);
     if (isAccessGranted(req)) {
         User.find({
             $or: [
@@ -171,7 +170,7 @@ UsersController.update = async (req, res) => {
                 res.status(400).send(error);
             });
     } else {
-        res.status(401).send('Unauthorized access');
+        res.status(401).send('Unauthorized access. Users can only update their own threads or comments.');
     }
 };
 
@@ -194,12 +193,12 @@ UsersController.delete = async (req, res) => {
                 res.status(400).send(error);
             });
     } else {
-        res.status(401).send('Unauthorized access');
+        res.status(401).send('Unauthorized access. Users can delete only their own threads or comments.');
     }
 };
 
 UsersController.userFollows = async (req, res) => {
-    if (isAccessGranted(req)) {
+    // if (isAccessGranted(req)) {
         User.find({
             nickname: req.params.user,
         })
@@ -218,13 +217,13 @@ UsersController.userFollows = async (req, res) => {
                 res.status(400).send(error);
                 console.log(error);
             });
-    } else {
-        res.status(401).send('Unauthorized access');
-    }
+    // } else {
+    //     res.status(401).send('Unauthorized access');
+    // }
 };
 
 UsersController.addFollower = async (req, res) => {
-    if (isAccessGranted(req)) {
+    // if (isAccessGranted(req)) {
         User.find({
             nickname: req.params.nickname,
         })
@@ -243,15 +242,15 @@ UsersController.addFollower = async (req, res) => {
                 res.status(400).send(error);
                 console.log(error);
             });
-    } else {
-        res.status(401).send('Unauthorized access');
-    }
+    // } else {
+    //     res.status(401).send('Unauthorized access');
+    // }
 };
 
 UsersController.following = async (req, res) => {
-    if (isAccessGranted(req)) {
+    // if (isAccessGranted(req)) {
         User.find({
-            nickname: req.params.nickname,
+            nickname: req.params.id,
         })
             .then((user) => {
                 if (user) {
@@ -264,14 +263,13 @@ UsersController.following = async (req, res) => {
                 res.status(400).send(error);
                 console.log(error);
             });
-    } else {
-        res.status(401).send('Unauthorized access');
-    }
+    // } else {
+    //     res.status(401).send('Unauthorized access.');
+    // }
 };
 
 UsersController.followers = async (req, res) => {
-    if (isAccessGranted(req)) {
-
+    // if (isAccessGranted(req)) {
         User.find({
             nickname: req.params.nickname,
         })
@@ -286,9 +284,9 @@ UsersController.followers = async (req, res) => {
                 res.status(400).send(error);
                 console.log(error);
             });
-    } else {
-        res.status(401).send('Unauthorized access');
-    }
+    // } else {
+    //     res.status(401).send('Unauthorized access');
+    // }
 };
 
 // Actualizar a admin del user por id
