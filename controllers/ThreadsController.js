@@ -255,7 +255,15 @@ ThreadsController.deleteComment = async (req, res) => {
     })
     .then(thread => {
         if (thread) {
-            thread[0].posts.splice(req.params.index, 1);
+            let index;
+            // console.log('thread: ', thread);
+            // console.log('posts length: ', thread[0].posts.length);
+            for(let i=0;i<thread[0].posts.length;i++){
+                if(thread[0].posts[i]._id.toString() === req.params.id)
+                    // console.log('thread[0].posts[i]._id: ', thread[0].posts[i]._id.toString());
+                    index = i;
+            }
+            thread[0].posts.splice(index, 1);
             thread[0].save();
             res
                 .status(201)
