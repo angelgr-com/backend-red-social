@@ -89,7 +89,7 @@ ThreadsController.getThreadsByTheme = async (req, res) => {
             theme: req.params.theme,
         })
         .then(thread => {
-            console.log('thread: ', thread);
+            // console.log('thread: ', thread);
             if (thread) {
                 res.status(200).send(thread);
             } else {
@@ -119,16 +119,15 @@ ThreadsController.editThread = async (req, res) => {
             if (thread) {
                 thread[0].title = req.body.title;
                 thread[0].title_url = title_url;
-                // thread[0].theme = req.body.theme;
+                thread[0].theme = thread[0].theme;
                 thread[0].posts = [{
                     title: req.body.title,
                     title_url: req.body.title_url,
                     author: thread[0].posts[0].author,
-                    // author: author, // author == nickname
-                    // date: req.body.date,
-                    // content: req.body.posts[0].content,
-                    // likes: req.body.likes,
-                    // dislikes: req.body.dislikes,
+                    date: thread[0].posts[0].date,
+                    content: thread[0].posts[0].content,
+                    likes: thread[0].posts[0].likes,
+                    dislikes: thread[0].posts[0].dislikes,
                 }];
                 thread[0].save();
                 res
@@ -150,7 +149,7 @@ ThreadsController.deleteThread = async (req, res) => {
     Thread
         .deleteOne({ title_url: req.params.id })
         .then(thread => {
-            console.log('deleted thread: ', thread);
+            // console.log('deleted thread: ', thread);
             if (thread) {
                 res.status(200).send("Thread deleted.");
             } else {
