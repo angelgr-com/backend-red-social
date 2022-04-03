@@ -220,17 +220,15 @@ ThreadsController.editComment = async (req, res) => {
     })
     .then(thread => {
         if (thread) {
-            // console.log(thread[0].posts);
-            // for (let i=0; i<thread[0].posts.length; i++) {
-                //     let post = thread[0].posts[i];
-                //     console.log('post._id._id: ', post._id._id);
-                //     console.log('typeof post._id: ', typeof(post._id));
-                //     // this if fails because comend _id is a object (e.g. new ObjectId("62457117b8edc5a8e446c814"))
-                //     // if (post._id.includes(req.body.id)) {
-                    //     //     post.comment = req.body.comment;
-                    //     // }
-                    // }
-            let post = thread[0].posts[req.body.index];
+            let index;
+            // console.log('thread: ', thread);
+            // console.log('posts length: ', thread[0].posts.length);
+            for(let i=0;i<thread[0].posts.length;i++){
+                if(thread[0].posts[i]._id.toString() === req.params.id)
+                    // console.log('thread[0].posts[i]._id: ', thread[0].posts[i]._id.toString());
+                    index = i;
+            }
+            let post = thread[0].posts[index];
             post.content = req.body.content;
             thread[0].save();
             res
