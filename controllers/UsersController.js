@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const isAccessGranted = require("../middlewares/isAccessGranted");
 
 UsersController.register = async (req, res) => {
+    console.log(req);
     User.findOne({
         email: req.body.email,
     })
@@ -128,6 +129,7 @@ UsersController.find = async (req, res) => {
 };
 
 UsersController.update = async (req, res) => {
+    console.log(req);
     if (isAccessGranted(req)) {
         User.find({
             $or: [
