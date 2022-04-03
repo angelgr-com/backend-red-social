@@ -145,12 +145,7 @@ ThreadsController.editThread = async (req, res) => {
 
 ThreadsController.deleteThread = async (req, res) => {
     Thread
-        .deleteOne({
-            $or: [
-                { title_url: req.params.id }, 
-                { _id: req.params.id }, 
-            ]
-        })
+        .deleteOne({ title_url: req.params.id })
         .then(thread => {
             console.log('deleted thread: ', thread);
             if (thread) {

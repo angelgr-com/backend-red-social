@@ -10,6 +10,25 @@ UsersController.register = async (req, res) => {
         email: req.body.email,
     })
         .then((user) => {
+            req.body.name === undefined
+                ? req.body.name = user.name
+                : req.body.name = req.body.name;
+            req.body.nickname === undefined
+                ? req.body.nickname = user.nickname
+                : req.body.nickname = req.body.nickname;
+            req.body.email === undefined
+                ? req.body.email = user.email
+                : req.body.email = req.body.email;
+            req.body.avatar === undefined
+                ? req.body.avatar = user.avatar
+                : req.body.avatar = req.body.avatar;
+            req.body.password === undefined
+                ? req.body.password = user.password
+                : req.body.password = req.body.password;
+            req.body.isAdmin === undefined
+                ? req.body.isAdmin = user.isAdmin
+                : req.body.isAdmin = req.body.isAdmin;
+            
             // Create user if no one is registered with that email
             if (user === null) {
                 User.create({
@@ -117,6 +136,24 @@ UsersController.update = async (req, res) => {
             ],
         })
             .then((user) => {
+                req.body.name === undefined
+                ? req.body.name = user.name
+                : req.body.name = req.body.name;
+                req.body.nickname === undefined
+                    ? req.body.nickname = user.nickname
+                    : req.body.nickname = req.body.nickname;
+                req.body.email === undefined
+                    ? req.body.email = user.email
+                    : req.body.email = req.body.email;
+                req.body.avatar === undefined
+                    ? req.body.avatar = user.avatar
+                    : req.body.avatar = req.body.avatar;
+                req.body.password === undefined
+                    ? req.body.password = user.password
+                    : req.body.password = req.body.password;
+                req.body.isAdmin === undefined
+                    ? req.body.isAdmin = user.isAdmin
+                    : req.body.isAdmin = req.body.isAdmin;
                 if (user) {
                     user[0].name = req.body.name;
                     user[0].nickname = req.body.nickname;
