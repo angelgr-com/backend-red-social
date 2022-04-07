@@ -2,7 +2,7 @@ const Thread = require('../models/thread.js');
 const ThreadsController = {};
 const jwt = require('jsonwebtoken');
 const isAccessGranted = require("../middlewares/isAccessGranted");
-
+ 
 ThreadsController.newThread = async (req, res) => {
     let author = formatString(req.body.posts[0].author);
     let title_url = formatString(req.body.title);
